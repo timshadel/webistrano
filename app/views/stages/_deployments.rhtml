@@ -1,0 +1,39 @@
+<h3>Recent Deployment History</h3>
+
+<% if @stage.deployments.empty? %>
+  <p>
+    This stage was never deployed. 
+  </p>
+<% else %>
+  <table class="sortable">
+    <tr>
+      <th>Task</th>
+      <th>Started (UTC)</th>
+      <th>Completed (UTC)</th>
+      <th style="width:230px;">Comment</th>
+      <th>User</th>
+      <th>Status</th>
+    </tr>
+  <% for deployment in @stage.recent_deployments %>
+    <tr class="<%= cycle :even, :odd, :name => 'deployments' %>">
+      <td><%= link_to h(deployment.task), project_stage_deployment_path(@project, @stage, deployment) %></td>
+      <td><%=h deployment.created_at.to_s(:log)  %></td>
+      <td><%=h deployment.completed_at.to_s(:log) rescue nil %></td>
+      <td><%=h truncate(deployment.comment, 37) %></td>
+      <td><%= user_info(deployment.user) rescue '' %></td>
+      <td><%= deployment.status_in_html %></td>
+    </tr>
+  <% end %>
+  </table>  
+<% end %>
+<p>
+  <% if @stage.deployment_possible? %>
+    <%= link_to 'New deployment', new_project_stage_deployment_path(current_project, @stage) %> <%= (@stage.deployments.count > 1) ? '|' : '' %>
+  <% else %>
+    A deployment is currently not possible:<br />
+    <%= display_deployment_problems(@stage) %>
+  <% end %>
+  <% if @stage.deployments.count > 1 %>
+    <%= link_to "Complete deployment history", project_stage_deployments_path(@project, @stage) %>
+  <% end %>
+</p>

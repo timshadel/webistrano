@@ -1,0 +1,22 @@
+<h2>Listing hosts</h2>
+
+<table class="sortable">
+  <tr>
+    <th>Name</th>
+    <th>#Stages</th>
+    <th>#Roles</th>
+  </tr>
+  <% for host in @hosts %>
+    <tr class="<%= cycle :even, :odd  %>">
+      <td><%= link_to h(host.name), host_path(host) %></td>
+      <td><%=h host.stages.count %></td>
+      <td><%=h host.roles.count %></td>
+      <td><%= link_to 'Edit', edit_host_path(host) %></td>
+      <td><%= link_to 'Destroy', host_path(host), :confirm => 'Are you sure?', :method => :delete %></td>
+    </tr>
+  <% end %>
+</table>
+
+<br />
+
+<%= link_to 'New host', new_host_path %>

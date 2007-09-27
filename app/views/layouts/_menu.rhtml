@@ -1,0 +1,28 @@
+<div class="menu_title"><%= link_to 'Projects', projects_path %></div>
+<% if Project.count > 0 %>
+  <ul>
+    <% for project in Project.find(:all, :order => "name ASC") %>
+      <li><%= link_to project.name, project_path(project), :class => "menu_link"%></li>
+    <% end %>
+  </ul>
+<% else %>
+  <p>No project created yet</p>
+  <p><%= link_to 'New project', new_project_path %></p>
+<% end %>
+
+<div class="menu_title"><%= link_to 'Hosts', hosts_path %></div>
+<% if Host.count > 0 %>
+  <ul>
+    <% for host in Host.find(:all, :order => "name ASC") %>
+      <li><%= link_to host.name, host_path(host), :class => "menu_link"%></li>
+    <% end %>
+  </ul>
+<% else %>
+  <p>No host created yet</p>
+  <p><%= link_to 'New host', new_host_path %></p>
+<% end %>
+
+<div class="menu_title"><%= link_to 'Recipes', recipes_path %></div>
+
+
+<div class="menu_title"><%= link_to 'Users', users_path %></div>

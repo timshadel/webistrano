@@ -1,0 +1,33 @@
+<h2>Listing projects</h2>
+
+<% if @projects.empty? %>
+  <p>
+    No projects configured yet.<br />
+    Please add a project.
+  </p>
+<% else %>
+  <table class="sortable">
+    <tr>
+      <th>Name</th>
+      <th>Description</th>
+      <th>#Stages</th>
+      <th>#Deploy.</th>
+      <th>Created At</th>
+    </tr>
+    <% for project in @projects %>
+      <tr class="<%= cycle :even, :odd, :name => 'projects'  %>">
+        <td><%= link_to h(project.name), project_path(project) %></td>
+        <td><%=h project.description %></td>
+        <td><%=h project.stages.count %></td>
+        <td><%=h project.deployments.count %></td>
+        <td><%=h project.created_at.to_s(:date_with_day) %></td>
+        <td><%= link_to 'Edit', edit_project_path(project) %></td>
+        <td><%= link_to 'Destroy', project_path(project), :confirm => 'Are you sure?', :method => :delete %></td>
+      </tr>
+    <% end %>
+  </table>
+<% end %>
+
+<br /><br />
+
+<%= link_to 'New project', new_project_path %>

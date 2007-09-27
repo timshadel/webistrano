@@ -1,0 +1,42 @@
+<p>
+  <b>Name</b><br />
+  <%= text_field 'configuration', 'name', :style =>'' %>
+</p>
+
+<p>
+  <table>
+    <tr>
+      <td>
+        <b>Value</b><br />
+        <% disabled = @configuration.prompt? ? {:disabled =>'disabled'} : {} %>
+        <%= text_field 'configuration', 'value', disabled %>
+      </td>
+      <td  style="padding:15px;">&nbsp;<b>or</b>&nbsp;</td>
+      <td>
+        <b>Prompt for value on deployment</b><br />
+        <%= check_box 'configuration', 'prompt_on_deploy', :style =>'' %>
+      </td>
+    </tr>
+  
+  </table>
+</p>
+
+<% content_for(:page_scripts) do %>
+  <script type="text/javascript">
+  
+   Event.observe(window, 'load', function(){
+      Event.observe('configuration_prompt_on_deploy', 'change', function(){
+
+        if( $F('configuration_prompt_on_deploy') == '1' ){
+          $('configuration_value').disable();
+        } else {
+          $('configuration_value').enable();
+        }
+      
+      });
+    });
+  
+  
+  
+  </script>
+<% end %>

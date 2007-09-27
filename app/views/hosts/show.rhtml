@@ -1,0 +1,21 @@
+<h2>Host <%=h @host.name %></h2>
+<p>
+  <b>Name:</b>
+  <%=h @host.name %>
+</p>
+<p>
+  <b>#Stages:</b>
+  <%=h @host.stages.uniq.size %>
+</p>
+<p>
+  <b>#Roles:</b>
+  <%=h @host.roles.count %>
+</p>
+<%= link_to 'Edit', edit_host_path(@host) %>
+<br />
+<br />
+<br />
+
+<%= render(:partial => 'stages')%>
+<br />
+

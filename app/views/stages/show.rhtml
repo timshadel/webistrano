@@ -1,0 +1,75 @@
+<h2>Stage <%=h @stage.name %> of <%= link_to current_project.name, project_path(current_project) %></h2>
+
+<p>
+  <b>Name:</b>
+  <%=h @stage.name %>
+</p>
+<p>
+  <b>Project:</b>
+  <%= link_to h(@stage.project.name), project_url(current_project) %>
+</p>
+<p>
+  <b>Alert on deploy:</b>
+  <%=h @stage.alert_emails %>
+</p>
+<p>
+  <b>#Hosts:</b>
+  <%=h @stage.hosts.count %>
+</p>
+<%= link_to 'Edit', edit_project_stage_path(current_project, @stage) %> | 
+<%= link_to 'Export Capfile', {:action => 'capfile', :project_id => current_project, :id => @stage}, {:onclick => "loadWindow('#{url_for(:action => 'capfile', :project_id => current_project, :id => @stage)}'); return false"} %>
+<br />
+<br />
+<br />
+
+<%= render(:partial => 'configs')%>
+<br />
+<div id="effective_config" style="display:none;">
+  <%= render(:partial => 'effective_config')%>
+  <br />
+</div>
+<%= link_to 'New configuration', new_project_stage_stage_configuration_path(current_project, @stage) %> | 
+<a id="s_e_c" href="#" onclick="show_effective_config(); return false">Show effective configuration</a>
+<a id="h_e_c" href="#" onclick="hide_effective_config(); return false" style="display:none;">Hide effective configuration</a>
+<br />
+<br />
+<br />
+
+<%= render(:partial => 'roles')%>
+<br />
+<%= link_to 'New host/role', new_project_stage_role_path(current_project, @stage) %>
+<br />
+<br />
+<br />
+
+<%= render(:partial => 'deployments')%>
+<br />
+<br />
+<br />
+<% content_for(:page_scripts) do %>
+ <script type="text/javascript">
+ 
+   function show_effective_config(){
+     $('h_e_c').show();
+     $('s_e_c').hide();
+     $('effective_config').show();
+   }
+   
+   function hide_effective_config(){
+      $('h_e_c').hide();
+      $('s_e_c').show();
+      $('effective_config').hide();
+    }
+ </script>
+<% end %>
+<% content_for(:action_box) do %>
+  <div class="action_box">
+	   <h3>Quick Actions:</h3>
+	   <p><%= link_to 'Setup', new_project_stage_deployment_path(current_project, @stage) + '?task=deploy:setup' %></p>
+	   <p><%= link_to 'Deploy', new_project_stage_deployment_path(current_project, @stage) + '?task=deploy' %></p>
+	   <p><%= link_to 'Deploy and migrate', new_project_stage_deployment_path(current_project, @stage) + '?task=deploy:migrations' %></p>
+	   <p><%= link_to 'Restart App Servers', new_project_stage_deployment_path(current_project, @stage) + '?task=deploy:restart' %></p>
+	   <p><%= link_to 'Rollback to previous', new_project_stage_deployment_path(current_project, @stage) + '?task=deploy:rollback' %></p>
+	</div>
+<% end %>
+

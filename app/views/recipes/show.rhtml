@@ -1,0 +1,31 @@
+<h2>Recipe <%=h @recipe.name %></h2>
+
+<p>
+  <b>Description:</b>
+</p>
+<p>
+  <%=web_friendly_text @recipe.description %>
+</p>
+
+<p>
+  <b>Used in:</b>
+</p>
+<p>
+  <% for project in @recipe.projects %>
+    <%= link_to h(project.name), project_path(project) %>
+  <% end %>
+</p>
+
+<p>
+  <b>Body:</b>
+</p>
+<div class="log_output">
+  <pre><%=h @recipe.body %></pre>
+</div>
+
+
+
+<%= link_to 'Edit', edit_recipe_path(@recipe) %>
+
+
+

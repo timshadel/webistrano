@@ -1,0 +1,67 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+  <meta name="description" content="Webistrano - Capristrano Deployment the easy way" />
+  <meta name="keywords" content="rubyonrails ruby rails capistrano deployment" />
+  <title>Webistrano</title>
+  <%= javascript_include_tag :defaults %>
+  <%= stylesheet_link_tag 'application' %>
+  <%= yield :page_scripts %>
+</head>
+
+<body>
+
+<div id="container">
+
+  <div id="header"><h1><%= link_to 'Webistrano', projects_path %></h1></div>
+
+  <div id="sub_header">Capistrano deployment the easy way</div>
+
+  <div id="main_content_top"></div>
+
+  <div id="main_content">
+
+    <div class="content">
+      
+      <% unless flash[:notice].blank? %>
+        <div id="flash">
+          <p><%= flash[:notice] %></p>
+        </div>
+      <% end %>
+      
+	    <% unless @page_title.blank? %>
+        <h2><%=h @page_title %></h2>
+	    <% end %>
+	
+	    <%= yield :action_box %>
+      
+      <%= yield  %>
+      
+    </div>
+
+    <div class="menu">
+      <%= render(:partial => 'layouts/menu')%>
+    </div>
+
+    <div id="clear"></div>
+
+  </div>
+
+  <div id="main_content_bottom">
+  </div>
+
+  <div id="footer">
+    <strong>Copyright &copy; 2007</strong> | 
+    <b>Implemented by <a href="http://blog.innerewut.de">Jonathan Weiss</a> for <a href="http://www.peritor.com">www.peritor.com</a></b> | 
+    <b>Design by</b> <a href="http://www.pikanai.com">Pikanai.com</a> 
+    <% if logged_in? %>
+     | <strong>Logged in as <%= link_to h(current_user.login), user_path(current_user) %> | <%= link_to 'Logout', '/logout' %></strong> 
+    <% end %>
+  </div>
+
+</div>
+
+</body>
+
+</html>

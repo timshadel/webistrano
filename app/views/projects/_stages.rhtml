@@ -1,0 +1,25 @@
+<h3>Stages</h3>
+
+<% if @project.stages.empty? %>
+  <p>
+    No stages configured yet. Stages represent one deployment scenario of a project. Typical examples are a `Prod` and a `Test` stage.
+    Please add a stage.
+  </p>
+<% else %>
+  <table class="sortable">
+    <tr>
+      <th>Name</th>
+      <th>#Hosts</th>
+      <th>#Deployments</th>
+    </tr>
+  <% for stage in @project.stages %>
+    <tr class="<%= cycle :even, :odd, :name => 'stages' %>">
+      <td><%= link_to h(stage.name), project_stage_path(@project, stage) %></td>
+      <td><%=h stage.hosts.count  %></td>
+      <td><%=h stage.deployments.count  %></td>
+      <td><%= link_to 'Edit', edit_project_stage_path(@project, stage) %></td>
+      <td><%= link_to 'Destroy', project_stage_path(@project, stage), :confirm => 'Are you sure?', :method => :delete %></td>
+    </tr>
+  <% end %>
+  </table>
+<% end %>

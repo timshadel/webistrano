@@ -1,0 +1,44 @@
+<p>
+  <b>Started (UTC):</b>
+  <%=h @deployment.created_at.to_s(:log) %>
+</p>
+<p>
+  <b>Completed (UTC):</b>
+  <%=h @deployment.completed_at.to_s(:log) rescue nil %>
+</p>
+<p>
+  <b>Comment:</b>
+  <%=web_friendly_text @deployment.comment %>
+</p>
+<p>
+  <b>Status:</b>
+  <%= @deployment.status_in_html %>
+</p>
+
+<div style="height: 30px;">
+  <% unless @deployment.completed? %>
+    <%= image_tag("spinner.gif") %>
+  <% end %>
+</div>
+
+<p>
+  <b>Log:</b>
+</p>
+<div class="log_output">
+  <pre><%=h @deployment.log.gsub('\n', "\n") rescue '' %></pre>
+</div>
+
+<% unless @deployment.completed? %>
+  <script type="text/javascript">
+    
+    function update_status(){
+      new Ajax.Updater('status_info','<%=h project_stage_deployment_path(@project, @stage, @deployment) %>',{
+        method: 'get',
+        evalScripts: true
+      });
+    }
+    
+    setTimeout(update_status, 3000);
+    
+  </script>
+<% end %>

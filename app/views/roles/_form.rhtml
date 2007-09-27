@@ -1,0 +1,71 @@
+<p>
+  <table>
+    <tr>
+      <td>
+        <b>Role</b><br />
+        <%= select('role', 'name', Role::DEFAULT_NAMES, { :include_blank => true }, {:style => 'width:250px;'}) %>
+      </td>
+      <td  style="padding:15px;">&nbsp;<b>or</b>&nbsp;</td>
+      <td>
+        <b>Custom Role</b><br />
+        <%= text_field 'role', 'custom_name', :style =>'width:250px;' %>
+      </td>
+    </tr>
+  
+  </table>
+</p>
+
+<p>
+  <b>Host</b><br />
+  <%= select('role', 'host_id', @host_choices, { :include_blank => true }, {:style => 'width:250px;'}) %>
+</p>
+
+<p>
+  <b>Custom SSH Port</b> (leave blank for default)<br />
+  <%= text_field 'role', 'ssh_port', :style =>'width:50px;' %>
+</p>
+
+<p>
+  <b>Primary</b><br />
+  <%= check_box 'role', 'primary', :style =>'' %>
+</p>
+
+<p>
+  <b>No release</b><br />
+  <%= check_box 'role', 'no_release', :style =>'' %>
+</p>
+
+<% content_for(:page_scripts) do %>
+  <script type="text/javascript">
+  
+    Event.observe(window, 'load', function(){
+      role_name();
+      Event.observe('role_name', 'change', role_name);
+      Event.observe('role_custom_name', 'change', role_custom_name);
+    });
+
+  
+    function role_name(){
+      var name = $('role_name');
+      var custom_name = $('role_custom_name');
+      
+      if(name.value != ''){
+        custom_name.disable();
+      } else {
+        custom_name.enable();
+      }
+    }
+    
+    function role_custom_name(){
+      var name = $('role_name');
+      var custom_name = $('role_custom_name');
+      
+      if(custom_name.value != ''){
+        name.disable();
+      } else {
+        name.enable();
+      }
+    }
+  
+  </script>
+<% end %>

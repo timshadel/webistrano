@@ -1,0 +1,34 @@
+<h2>Listing users</h2>
+
+<% if @users.empty? %>
+  <p>
+    No users added yet.<br />
+  </p>
+<% else %>
+  <table class="sortable">
+    <tr>
+      <th>Login</th>
+      <th>Email</th>
+      <th>Admin</th>
+      <th>Created At</th>
+    </tr>
+    <% for user in @users %>
+      <tr class="<%= cycle :even, :odd, :name => 'users'  %>">
+        <td><%= link_to h(user.login), user_path(user) %></td>
+        <td><%=h user.email %></td>
+        <td><%=h user.admin? ? 'Admin' : '' %></td>
+        <td><%=h user.created_at.to_s(:date_with_day) %></td>
+        <% if current_user.admin? || current_user == user -%>
+          <td><%= link_to 'Edit', edit_user_path(user) %></td>
+        <% end -%>
+        <% if current_user.admin? -%>
+          <td><%= link_to 'Destroy', user_path(user), :confirm => 'Are you sure?', :method => :delete %></td>
+        <% end -%>
+      </tr>
+    <% end %>
+  </table>
+<% end %>
+
+<br /><br />
+
+<%= link_to 'New user', new_user_path %>

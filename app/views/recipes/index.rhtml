@@ -1,0 +1,31 @@
+<h2>Listing recipes</h2>
+
+<% if @recipes.empty? %>
+  <p>
+    No recipes configured yet.<br />
+    Recipes are custom Capistrano tasks and variables that can be used across projects.<br />
+  </p>
+<% else %>
+  <table class="sortable">
+    <tr>
+      <th>Name</th>
+      <th>Description</th>
+      <th>#Projects</th>
+      <th>Created At</th>
+    </tr>
+    <% for recipe in @recipes %>
+      <tr class="<%= cycle :even, :odd, :name => 'recipes'  %>">
+        <td><%= link_to h(recipe.name), recipe_path(recipe) %></td>
+        <td><%=h recipe.description %></td>
+        <td><%=h recipe.projects.count %></td>
+        <td><%=h recipe.created_at.to_s(:date_with_day) rescue nil %></td>
+        <td><%= link_to 'Edit', edit_recipe_path(recipe) %></td>
+        <td><%= link_to 'Destroy', recipe_path(recipe), :confirm => 'Are you sure?', :method => :delete %></td>
+      </tr>
+    <% end %>
+  </table>
+<% end %>
+
+<br /><br />
+
+<%= link_to 'New recipe', new_recipe_path %>

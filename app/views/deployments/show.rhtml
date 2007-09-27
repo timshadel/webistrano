@@ -1,0 +1,21 @@
+<h2>Deployment of <%= current_stage_project_description %></h2>
+<p>
+  <b>Task:</b>
+  <%=h @deployment.task %>
+</p>
+<p>
+  <b>Stage:</b>
+  <%= link_to @deployment.stage.name, project_stage_path(@project, @stage) %> of Project <%= link_to @deployment.stage.project.name, project_path(@project) %> 
+</p>
+
+<p>
+  <b>Deployed by:</b> 
+  <%= user_info(@deployment.user) rescue '' %>
+<p>
+
+<div id="status_info">
+  <%= render(:partial => 'status')%>
+</div>
+
+
+<%= link_to 'Back', project_stage_path(@project, @stage) %>

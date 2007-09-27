@@ -1,0 +1,270 @@
+body {
+	background: #CACACA url(/images/layout/background.png) repeat-x;
+	font-family: "Trebuchet MS", Verdana, serif
+}
+#container {
+	margin: 0 auto;
+	width: 850px
+}
+#header {
+	width: 100%
+}
+#sub_header {
+	text-align: right;
+	font-weight: bold;
+	font-size: 20px;
+	color: #FFFFFF;
+	padding-right: 20px;
+	padding-bottom: 20px;
+}
+#main_content {
+	margin: 0 auto;
+	width: 100%;
+	background: #FFFFFF url('/images/layout/background_content.gif');
+	background-repeat: repeat-y
+} 
+#main_content_top {
+	height: 30px;
+	background: #FFFFFF url('/images/layout/background_top.gif');
+} 
+#main_content_bottom {
+	height: 30px;
+	background: #FFFFFF url('/images/layout/background_bottom.gif');
+}
+#footer {
+	text-align: center;
+	font-size: 12px;
+	margin: 10px auto
+}
+.content {
+	float: left;
+	width: 610px;
+	text-align: left;
+	padding: 0 20px 0 30px;
+	font-size: 12px
+}
+.menu {
+	width: 139px;
+	float: right;
+	padding: 0 20px 0 20px;
+	border-left: #8C8484 1px solid;
+	font-size: 12px
+}
+.menu ul {
+	margin: 0;
+	padding: 10px 0 10px 15px
+}
+.menu il {
+	list-style-type: disc
+}
+#header h1 {
+	margin-bottom: 0px;
+	font-size: 28px;
+	font-weight: bold;
+	color: #A40008
+}
+.content h2 {
+	margin-top: 0px;
+	font-size: 26px;
+	font-weight: bold;
+	text-align: left;
+	color: #A40008
+}
+.content h3 {
+	margin-top: 0px;
+	font-size: 18px;
+	font-weight: bold;
+	text-align: left;
+	color: #A40008
+}
+#clear {
+	display: block;
+	clear: both;
+	width: 100%;
+	height:1px;
+	overflow:hidden;
+}
+.menu_title {
+	font-size: 18px;
+	font-weight: bold;
+	color: #A40008
+}
+.menu ul {
+	margin: 0;
+	padding: 10px 0 20px 15px
+}
+.menu li {
+	padding-top: 2px;
+	list-style-type: circle
+}
+a {
+	color: #A40008;
+	font-weight: bold;
+	text-decoration: none
+}
+a:hover {
+	color: #A40008;
+	font-weight: bold;
+	text-decoration: underline
+}
+a.menu_link {
+	color: #000000;
+	font-weight: bold;
+	text-decoration: underline
+}
+a.menu_link:hover {
+	color: #A40008;
+	font-weight: bold;
+	text-decoration: none
+}
+.quote {
+	margin: 20px;
+	text-align: center;
+	font-weight: bold;
+	font-style: italic
+}
+
+/* Webistrano specific */
+
+table.sortable tr.odd { background-color: #FFFFFF; }
+table.sortable tr.even { background-color: #EEEEEE; }
+table.sortable tbody tr:hover { background-color: #AAAAAA; }
+table.sortable td { padding: 5px; }
+
+div.log_output {
+  margin: 10px;
+  padding: 10px;
+  color: #333333;
+  background-color: #EEEEEE;
+  overflow: auto;
+}
+
+div.action_box{
+  float: right;
+  width: 150px;
+  padding: 10px;
+  background-color: #EEEEEE;
+  border: 1px solid;
+}
+
+.role_status_deployed{
+  color: green;
+}
+
+.role_status_blank{
+  color: red;
+}
+
+.role_status_setup_done{
+/*  color: #333333;*/
+}
+
+.deployment_status_success{
+  color: green;
+}
+
+.deployment_status_failed{
+  color: red;
+}
+
+.role_status_running{
+/*  color: #333333;*/
+}
+
+.configuration_prompt{
+  font-style:italic;
+}
+
+/* RAILS related */
+
+#flash {
+	width: 100%;
+	padding: 0px;
+	margin-bottom: 15px;
+}
+
+#flash p {
+	text-align: justify;
+	padding: 15px;
+	color: #A40008;
+	font-weight: bold;
+	background: #CACACA;
+}
+
+.fieldWithErrors {
+  padding: 2px;
+  background-color: red;
+  display: table;
+}
+
+#errorExplanation {
+  width: 400px;
+  border: 2px solid red;
+  padding: 7px;
+  padding-bottom: 12px;
+  margin-bottom: 20px;
+  background-color: #f0f0f0;
+}
+
+#errorExplanation h2 {
+  text-align: left;
+  font-weight: bold;
+  padding: 5px 5px 5px 15px;
+  font-size: 12px;
+  margin: -7px;
+  background-color: #c00;
+  color: #fff;
+}
+
+#errorExplanation p {
+  color: #333;
+  margin-bottom: 0;
+  padding: 5px;
+}
+
+#errorExplanation ul li {
+  font-size: 12px;
+  list-style: square;
+}
+
+div.uploadStatus {
+  margin: 5px;
+}
+
+div.progressBar {
+  margin: 5px;
+}
+
+div.progressBar div.border {
+  background-color: #fff;
+  border: 1px solid grey;
+  width: 100%;
+}
+
+div.progressBar div.background {
+  background-color: #333;
+  height: 18px;
+  width: 0%;
+}
+
+/* multiple select helper */ 
+
+.multiple_select {
+  border: 1px solid #aaa;
+  height: 100px;
+  width: 330px;
+  padding: 2px;
+  overflow: auto;
+}
+
+.multiple_select, .multiple_select ul {
+  list-style-type: none;
+}
+
+.multiple_select_checkbox {
+  background: #fff;
+}
+
+.alt {
+  background: #eef;
+}

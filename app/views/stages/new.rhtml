@@ -1,0 +1,21 @@
+<h2>New stage for <%= link_to h(current_project.name), project_path(current_project)%></h2>
+
+<%= error_messages_for :stage %>
+
+<% form_for(:stage, :url => project_stages_path(current_project)) do |f| %>
+  <p>
+    <b>Name</b><br />
+    <%= f.text_field :name %>
+  </p>
+  
+  <p>
+    <b>Alert these emails on deploy (separated by space)</b><br />
+    <%= f.text_field :alert_emails %>
+  </p>
+  
+  <p>
+    <%= submit_tag "Create" %>
+  </p>
+<% end %>
+
+<%= link_to 'Back', project_path(current_project) %>

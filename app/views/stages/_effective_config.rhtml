@@ -1,0 +1,23 @@
+<h3>Effective Configuration</h3>
+
+<% if @stage.effective_configuration.empty? %>
+  <p>
+    No effective configuration present. The effective configuration is the result of the stage 
+    specific configuration entries overriding the project configuration entries. 
+  </p>
+<% else %>
+  <table class="sortable">
+    <tr>
+      <th>Name</th>
+      <th>Value</th>
+      <th>Prompt</th>
+    </tr>
+  <% @stage.effective_configuration.each do |conf| %>
+    <tr class="<%= cycle :even, :odd, :name => 'effective_conf' %>">
+      <td><%=h conf.name %></td>
+      <td><%=h hide_password_in_value(conf) %></td>
+      <td><%= conf.prompt_status_in_html %></td>
+    </tr>
+  <% end %>
+  </table>
+<% end %>

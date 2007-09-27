@@ -1,0 +1,37 @@
+<h2>Deployment History of <%= user_info(@user) %></h2>
+
+<% if @user.deployments.empty? %>
+  <p>
+    This user has never deployed any stages. 
+  </p>
+<% else %>
+  <p>
+    This user has <%=h pluralize(@user.deployments.count, 'deployment') %>.
+  </p>
+  <br />
+  <table class="sortable">
+    <tr>
+      <th>Project</th>
+      <th>Stage</th>
+      <th>Task</th>
+      <th>Started (UTC)</th>
+      <th>Completed (UTC)</th>
+      <th style="width:200px;">Comment</th>
+      <th>Status</th>
+    </tr>
+  <% for deployment in @user.deployments %>
+    <tr class="<%= cycle :even, :odd, :name => 'deployments' %>">
+      <td><%= link_to h(deployment.stage.project.name), project_path(deployment.stage.project) %></td>
+      <td><%= link_to h(deployment.stage.name), project_stage_path(deployment.stage.project, deployment.stage) %></td>
+      <td><%= link_to h(deployment.task), project_stage_deployment_path(deployment.stage.project, deployment.stage, deployment) %></td>
+      <td><%=h deployment.created_at.to_s(:log)  %></td>
+      <td><%=h deployment.completed_at.to_s(:log) rescue nil %></td>
+      <td><%=h truncate(deployment.comment, 37) %></td>
+      <td><%= deployment.status_in_html %></td>
+    </tr>
+  <% end %>
+  </table>
+<% end %>
+
+<br />
+<%= link_to "Back", user_path(@user) %>
