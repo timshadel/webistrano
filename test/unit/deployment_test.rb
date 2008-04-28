@@ -226,4 +226,53 @@ class DeploymentTest < Test::Unit::TestCase
     assert_equal "Repetition of deployment #{original.id}:\n\n#{original.description}", repeater.description
   end
   
+  def test_excluded_hosts_accessor
+    host = create_new_host
+    deployment = create_new_deployment(:excluded_host_ids => [host.id], :stage => @stage)
+
+    assert_equal [host.id], deployment.excluded_host_ids
+    assert_equal [host], deployment.excluded_hosts
+    
+    deployment.excluded_host_ids = host.id.to_s
+    assert_equal [host.id], deployment.excluded_host_ids
+  end
+  
+  def test_excluded_hosts
+    host_1 = create_new_host
+    host_2 = create_new_host
+    stage = create_new_stage
+    role_app = create_new_role(:name => 'app', :stage => stage, :host => host_1)
+    role_www = create_new_role(:name => 'www', :stage => stage, :host => host_2)
+    role_db = create_new_role(:name => 'db', :stage => stage, :host => host_2)
+    
+    stage.reload
+    assert_equal 3, stage.roles.count
+    deployment = create_new_deployment(
+                  :stage => stage, 
+                  :excluded_host_ids => [host_1.id])
+    
+    assert_equal 3, deployment.roles.count
+    assert_equal [host_1], deployment.excluded_hosts
+                  
+    assert_equal [host_2], deployment.deploy_to_hosts
+    assert_equal [role_www, role_db].map(&:id).sort, deployment.deploy_to_roles.map(&:id).sort
+  end
+  
+  def test_cannot_exclude_all_hosts
+    stage = create_new_stage
+    host = create_new_host
+    role_app = create_new_role(:name => 'app', :stage => stage, :host => host)
+    
+    d = Deployment.new
+    d.task = 'foo'
+    d.stage = stage
+    d.description = 'foo bar'
+    d.excluded_host_ids = role_app.host.id
+    d.user = create_new_user
+
+    assert !d.valid?
+    assert d.errors.on('base')
+  end
+  
+  
 end

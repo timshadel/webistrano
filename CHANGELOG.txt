@@ -1,5 +1,15 @@
 
-* SVN *
+SVN
+
+1.3
+
+* Ability to disable host per deloy. This way host that are down do not block a deployment
+
+* Check syntax of recipes. Provided by Mathias Meyer
+
+* Ajax-Preview on recipe edit. Provided by Mathias Meyer
+
+* Update Capistrano to 2.2.0 and Net::SFTP to 1.1.1
 
 * Better handling of `repeat` task by also repeating the description
 
